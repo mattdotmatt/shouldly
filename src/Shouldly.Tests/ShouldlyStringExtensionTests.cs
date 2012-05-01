@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+﻿﻿using NUnit.Framework;
 
 namespace Shouldly.Tests
 {
@@ -6,22 +6,21 @@ namespace Shouldly.Tests
     public class ShouldlyStringExtensionTests
     {
         [Test]
-        public void ClipShouldNotReduceTheSizeOfAStringSmallerThanTheMaximumLength()
+        public void Clip_ShouldNotReduceTheSizeOfAStringSmallerThanTheMaximumLength()
         {
             "small".ShouldMatch("small".Clip(10));
         }
 
         [Test]
-        public void ClipShouldReduceTheSizeOfAStringLongerThanTheMaximumLength()
+        public void Clip_ShouldReduceTheSizeOfAStringLongerThanTheMaximumLength()
         {
             "largestrin".ShouldMatch("largestringtoclip".Clip(10));
         }
 
         [Test]
-        public void ClipShouldHandleEmptyStrings()
+        public void Clip_ShouldHandleEmptyStrings()
         {
             string.Empty.ShouldMatch(string.Empty.Clip(10));
         }
-
     }
 }

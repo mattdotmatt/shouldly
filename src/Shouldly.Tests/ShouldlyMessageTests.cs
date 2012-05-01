@@ -24,7 +24,7 @@ namespace Shouldly.Tests
         }
 
         [Test]
-        public void ShouldlyMessage_PassedCollectionsWhichCanBeCompared_ShouldShowDifferences() 
+        public void ShouldlyMessage_PassedCollectionsWhichCanBeCompared_ShouldShowDifferences()
         {
             Should.Error(
                 () => (new[] { 1, 2, 3 }).ShouldBe(new[] { 2, 2, 3 }),
@@ -42,7 +42,7 @@ namespace Shouldly.Tests
         }
 
         [Test]
-        public void ShouldlyMessage_PassedObjectsWhichCannotCompared_ShouldNotShowDifferences() 
+        public void ShouldlyMessage_PassedObjectsWhichCannotCompared_ShouldNotShowDifferences()
         {
             Should.Error(
                 () => new UncomparableClass("ted").ShouldBe(new UncomparableClass("bob")),
@@ -56,8 +56,17 @@ namespace Shouldly.Tests
             var longString = new string('a', 110);
             Should.Error(
               () => longString.ShouldContain("zzzz"),
-              string.Format("() => longString should contain \"zzzz\" but was \"{0}\"",longString.Substring(0,100))
+              string.Format("() => longString should contain \"zzzz\" but was \"{0}\"", longString.Substring(0, 100))
           );
+        }
+
+        [Test]
+        public void ShouldlyMessage_WhenComparingMatchingStringsOver100Characters_ShouldNotClipStringForComparison()
+        {
+            var longString = new string('a', 110) + "zzzz";
+
+            Should.NotError(
+              () => longString.ShouldContain("zzzz"));
         }
 
         [Test]
@@ -70,14 +79,17 @@ namespace Shouldly.Tests
           );
         }
 
-        private class UncomparableClass {
+        private class UncomparableClass
+        {
             private readonly string _description;
 
-            public UncomparableClass(string description) {
+            public UncomparableClass(string description)
+            {
                 _description = description;
             }
 
-            public override string ToString() {
+            public override string ToString()
+            {
                 return _description;
             }
         }
